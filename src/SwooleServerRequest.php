@@ -80,7 +80,6 @@ class SwooleServerRequest extends ServerRequest
         );
         unset($headers);
 
-        $serverRequest->getBody()->write($request->rawContent());
 
         return $serverRequest
             ->withParsedBody($post)
