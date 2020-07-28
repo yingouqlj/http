@@ -67,11 +67,15 @@ class SwooleServerRequest extends ServerRequest
             $headers[str_replace('-', '_', $name)] = $value;
         }
 
+        $stream = new Stream('php://memory', 'wb+');
+        $stream->write($request->rawContent());
+        $stream->rewind();
+
         $serverRequest = new ServerRequest(
             $server['REQUEST_METHOD'],
             static::createUriFromGlobal($server),
             $headers,
-            null,
+            $stream,
             $server
         );
         unset($headers);
